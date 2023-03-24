@@ -101,9 +101,8 @@
 								<textarea type="text" name="details" class="form-control" required></textarea> 
                             </div>
 						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-							<input type="submit" class="btn btn-success" value="Add"> </div>
+						<div class="modal-footer text-center">
+							<button type="submit" class="btn btn-success">Submit</button>
 					</form>
 				</div>
 			</div>
