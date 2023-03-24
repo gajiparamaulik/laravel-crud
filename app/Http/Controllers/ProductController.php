@@ -39,13 +39,13 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'type' => 'required',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // 'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'detail' => 'required',
         ]);
   
         // $input = $request->user_id('1');
         $input = $request->all();
-        dd($input);
+        // dd($input);
         // if ($image = $request->file('image')) {
         //     $destinationPath = 'image/';
         //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
@@ -55,8 +55,7 @@ class ProductController extends Controller
     
         Product::create($input);
      
-        return redirect()->route('products.index')
-                        ->with('success','Product created successfully.');
+        return redirect()->back();
     }
 
     /**
