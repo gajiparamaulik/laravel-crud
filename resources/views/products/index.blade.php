@@ -44,21 +44,23 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1.</td>
-							<td>Testing User</td>
-							<td>thomas hardy</td>
-							<td>First</td>
-							<td>Image</td>
-							<td>Details</td>
-							<td><a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                </a> 
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                </a>
-                            </td>
-						</tr>
+						@foreach ($getData as $data)
+							<tr>
+								<td>{{ $data->id }}</td>
+								<td>{{ $data->user_id }}</td>
+								<td>{{ $data->name }}</td>
+								<td>{{ $data->type }}</td>
+								<td>{{ $data->thumbnail }}</td>
+								<td>{{ $data->details }}</td>
+								<td><a href="#editEmployeeModal" class="edit" data-toggle="modal">
+										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+									</a> 
+									<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+										<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+									</a>
+								</td>
+							</tr>
+						@endforeach
 					</tbody>
 				</table>
 				<div class="clearfix">
