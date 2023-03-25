@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('products.index');
+        $getData = Product::get();
+        return view('products.index', compact('getData'));
     }
 
     /**
@@ -39,22 +40,12 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'type' => 'required',
-            // 'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'detail' => 'required',
+            'details' => 'required',
         ]);
-  
-        // $input = $request->user_id('1');
-        $input = $request->all();
-        // dd($input);
-        // if ($image = $request->file('image')) {
-        //     $destinationPath = 'image/';
-        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-        //     $image->move($destinationPath, $profileImage);
-        //     $input['image'] = "$profileImage";
-        // }
-    
-        Product::create($input);
-     
+        $request['user_id'] = 1;
+        $request['thumbnail'] = "test.png";
+        Product::create($request->all());
+        
         return redirect()->back();
     }
 
