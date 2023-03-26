@@ -36,15 +36,30 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
             'name' => 'required',
             'type' => 'required',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'details' => 'required',
         ]);
+        $product = new Product();
+        $product->user_id = 1;
+        $product->name = $request->name;
+        $product->type = $request->type;
+        
         $request['user_id'] = 1;
-        $request['thumbnail'] = "test.png";
-        Product::create($request->all());
+        if ($image = $request->hasFile('thumbnail')) {
+            $destinationPath = 'images/';
+            $filenamewithExt = $request->file('thumbnail')->getClientOriginalName();
+            $filename = pathinfo($filenamewithExt, PATHINFO_FILENAME);
+            $extension = $request->file('thumbnail')->getClientOriginalExtension();
+            $product->thumbnail = $filename.'_'.time().'.'.$extension;
+            $image->move();
+            // $filenameToStore = $filename.'_'.time().'.'.$extension;
+        }
+        $product->details = $request->details;
+        $product->save();
+        // Product::create($request->all());
         
         return redirect()->back();
     }
