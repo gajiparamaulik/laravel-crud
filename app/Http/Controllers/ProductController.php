@@ -48,18 +48,17 @@ class ProductController extends Controller
         $product->type = $request->type;
         
         $request['user_id'] = 1;
-        if ($image = $request->hasFile('thumbnail')) {
+        if ($image = $request->file('thumbnail')) {
             $destinationPath = 'images/';
-            $filenamewithExt = $request->file('thumbnail')->getClientOriginalName();
-            $filename = pathinfo($filenamewithExt, PATHINFO_FILENAME);
+            $filenamewithExt = $image->getClientOriginalName();
+            $fileName = pathinfo($filenamewithExt, PATHINFO_FILENAME);
             $extension = $request->file('thumbnail')->getClientOriginalExtension();
-            $product->thumbnail = $filename.'_'.time().'.'.$extension;
-            $image->move();
-            // $filenameToStore = $filename.'_'.time().'.'.$extension;
+            $filenameToStore = $fileName.'_'.time().'.'.$extension;
+            $image->move($destinationPath, $filenameToStore);
+            $product->thumbnail = "$filenameToStore";
         }
         $product->details = $request->details;
         $product->save();
-        // Product::create($request->all());
         
         return redirect()->back();
     }
