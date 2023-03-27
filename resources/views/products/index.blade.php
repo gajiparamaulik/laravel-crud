@@ -50,7 +50,7 @@
 								<td>{{ $data->user_id }}</td>
 								<td>{{ $data->name }}</td>
 								<td>{{ $data->type }}</td>
-								<td>{{ $data->thumbnail }}</td>
+								<td><img src="images/{{ $data->thumbnail }}" width="100px"></td>
 								<td>{{ $data->details }}</td>
 								<td><a href="#editEmployeeModal" class="edit" data-toggle="modal">
 										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
