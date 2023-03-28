@@ -13,10 +13,10 @@
 <body class="vh-100 gradient-custom">
 	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
+			<a class="navbar-brand" href="#"><img src="/images/mg-logo.jpg" height="30" alt=""></a>
 			<div class="col-xs-2 search-box">
 				<input class="form-control" type="search" placeholder="Search" aria-label="Search">
 			</div>
-			<button class="btn btn-outline-success" type="submit">Add Prod</button>
 		</div>
 	</nav>
 
