@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="{{asset('css/product.css')}}">
 	<script src="{{asset('js/product.js')}}"></script>
 </head>
-<body class="vh-100 gradient-custom">
+<body class="bg-info">
 	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#"><img src="/images/mg-logo.jpg" height="30" alt=""></a>
@@ -70,7 +70,30 @@
 					<button	button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-				
+					<form>
+						<div class="mb-3">
+						  <label for="name" class="form-label">Full Name</label>
+						  <input type="text" class="form-control" name="name">
+						</div>
+						<div class="mb-3">
+							<label for="name" class="form-label">Type</label>
+							<select class="form-select">
+							  <option selected>Choose...</option>
+							  <option value="1">One</option>
+							  <option value="2">Two</option>
+							  <option value="3">Three</option>
+							</select>
+						</div>
+						<div class="mb-3">
+						  <label for="name" class="form-label">Thumbnail</label>
+						  <input type="file" accept=".png, .jpg, .jpeg, .gif" />
+						</div>
+						<div class="form-floating mb-3">
+							<label for="floatingTextarea2" class="form-label">Details</label>
+							<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+						  </div>
+						<button type="submit" class="btn btn-primary">Submit</button>
+					  </form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
