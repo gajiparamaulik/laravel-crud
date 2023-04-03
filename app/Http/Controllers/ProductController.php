@@ -31,7 +31,7 @@ class ProductController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
         }
-      
+    
         return view('products.index',compact('getData'));
     }
 
@@ -57,6 +57,7 @@ class ProductController extends Controller
         Product::updateOrCreate(
             ['id' => $request->book_id],
             [
+                'user_id' => 1, 
                 'name' => $request->name, 
                 'author' => $request->author,
                 'type' => $request->type,
@@ -64,7 +65,7 @@ class ProductController extends Controller
                 'details' => $request->details
             ]);        
    
-        return response()->json(['success'=>'Book saved successfully.']);
+        return response()->json(['success'=>'Product saved successfully.']);
 
         // $request->validate([
         //     'name' => 'required',
@@ -112,7 +113,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $book = Product::find($id);
+        return response()->json($book);
     }
 
     /**
@@ -135,6 +137,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        Product::find($id)->delete();
+     
+        return response()->json(['success'=>'Product deleted successfully.']);
     }
 }

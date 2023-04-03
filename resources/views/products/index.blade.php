@@ -23,11 +23,11 @@
 	</nav>
 
 	<div class="container mt-3">
-		<button class="btn btn-dark"  data-bs-toggle="modal" data-bs-target="#formModal">Add Product</button>
+		<button class="btn btn-dark" id="createNewProduct">Create New Product</button>
 	</div>
 
 	<div class="container bg-light mt-3">
-		<table class="table ">
+		<table class="table data-table">
 			<thead>
 				<tr>
 					<th scope="col">No.</th>
@@ -63,7 +63,7 @@
 	</div>
 
 	<!-- Modal -->
-	<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="ajaxModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -71,15 +71,16 @@
 					<button	button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+					<form id="productForm" name="productForm" enctype="multipart/form-data">
 						@csrf
+						<input type="hidden" name="product_id" id="product_id">
 						<div class="mb-3">
 						  <label for="name" class="form-label fw-bolder">Full Name</label>
-						  <input type="text" class="form-control" name="name" placeholder="Enter Full Name">
+						  <input type="text" class="form-control" id="name" name="name" value="" placeholder="Enter Full Name" required="">
 						</div>
 						<div class="mb-3">
 							<label for="name" class="form-label fw-bolder">Type</label>
-							<select class="form-select" name="type">
+							<select class="form-select" name="type" id="type" value="" required="">
 							  <option selected>Choose...</option>
 							  <option value="one">One</option>
 							  <option value="two">Two</option>
@@ -88,13 +89,16 @@
 						</div>
 						<div class="mb-3">
 						  <label for="name" class="form-label fw-bolder">Thumbnail</label><br>
-						  <input type="file" accept=".png, .jpg, .jpeg, .gif" name="thumbnail" />
+						  <input type="file" accept=".png, .jpg, .jpeg, .gif" id="thumbnail" value="" name="thumbnail" />
 						</div>
 						<div class="form-group purple-border">
 							<label for="details" class="fw-bolder">Details</label>
-							<textarea class="form-control" rows="3" name="details" placeholder="Leave a comment here"></textarea>
+							<textarea class="form-control" rows="3" name="details" id="details" value="" 
+							placeholder="Leave a comment here"></textarea>
 						</div>
-						<button type="submit" class="btn btn-primary float-right mt-2">Submit</button>
+						<button type="submit" id="saveBtn" value="create" class="btn btn-primary float-right mt-2">
+							Submit
+						</button>
 					  </form>
 				</div>
 			</div>
@@ -103,6 +107,43 @@
 	
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>		
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+		crossorigin="anonymous">
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+	
+	<script type="text/javascript">
+		$(function() {
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+
+			var table = $('.data-table').DataTable({
+				processing: true,
+				serverSide: true,
+				ajax: "{{ route('products.index') }}",
+				columns: [
+					{data: 'DT_RowIndex', name: 'DT_RowIndex'},
+					{data: 'name', name: 'name'},
+					{data: 'type', name: 'type'},
+					// {data: 'thumbnail', name: 'thumbnail'},
+					{data: 'details', name: 'details'},
+					{data: 'action', name: 'action', orderable: false, searchable: false},
+				]
+			});
+
+			$('#createNewProduct').click(function () {
+				$('#saveBtn').val("create-product");
+				$('#product_id').val('');
+				$('#productForm').trigger("reset");
+				$('#modelHeading').html("Create New Product");
+				$('#ajaxModel').modal('show');
+			});
+
+
+		});
+	</script>
 </body>
 </html>
