@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-
+use DataTables;
 class ProductController extends Controller
 {
     /**
@@ -12,10 +12,27 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $getData = Product::get();
-        return view('products.index', compact('getData'));
+        $getData = Product::latest()->get();
+        
+        if ($request->ajax()) {
+            $data = Product::latest()->get();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+   
+                           $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editBook">Edit</a>';
+   
+                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteBook">Delete</a>';
+    
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+      
+        return view('products.index',compact('getData'));
     }
 
     /**
@@ -36,31 +53,44 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'type' => 'required',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'details' => 'required',
-        ]);
-        $product = new Product();
-        $product->user_id = 1;
-        $product->name = $request->name;
-        $product->type = $request->type;
+
+        Product::updateOrCreate(
+            ['id' => $request->book_id],
+            [
+                'name' => $request->name, 
+                'author' => $request->author,
+                'type' => $request->type,
+                'thumbnail' => $request->thumbnail,
+                'details' => $request->details
+            ]);        
+   
+        return response()->json(['success'=>'Book saved successfully.']);
+
+        // $request->validate([
+        //     'name' => 'required',
+        //     'type' => 'required',
+        //     'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     'details' => 'required',
+        // ]);
+        // $product = new Product();
+        // $product->user_id = 1;
+        // $product->name = $request->name;
+        // $product->type = $request->type;
         
-        $request['user_id'] = 1;
-        if ($image = $request->file('thumbnail')) {
-            $destinationPath = 'images/';
-            $filenamewithExt = $image->getClientOriginalName();
-            $fileName = pathinfo($filenamewithExt, PATHINFO_FILENAME);
-            $extension = $request->file('thumbnail')->getClientOriginalExtension();
-            $filenameToStore = $fileName.'_'.time().'.'.$extension;
-            $image->move($destinationPath, $filenameToStore);
-            $product->thumbnail = "$filenameToStore";
-        }
-        $product->details = $request->details;
-        $product->save();
+        // $request['user_id'] = 1;
+        // if ($image = $request->file('thumbnail')) {
+        //     $destinationPath = 'images/';
+        //     $filenamewithExt = $image->getClientOriginalName();
+        //     $fileName = pathinfo($filenamewithExt, PATHINFO_FILENAME);
+        //     $extension = $request->file('thumbnail')->getClientOriginalExtension();
+        //     $filenameToStore = $fileName.'_'.time().'.'.$extension;
+        //     $image->move($destinationPath, $filenameToStore);
+        //     $product->thumbnail = "$filenameToStore";
+        // }
+        // $product->details = $request->details;
+        // $product->save();
         
-        return redirect()->back();
+        // return redirect()->back();
     }
 
     /**
