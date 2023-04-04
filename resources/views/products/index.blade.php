@@ -103,9 +103,6 @@ $(function() {
 		columns: [{
 			data: 'DT_RowIndex',
 			name: 'DT_RowIndex'
-		},{
-			data: 'user_id',
-			name: '1'
 		}, {
 			data: 'name',
 			name: 'name'
