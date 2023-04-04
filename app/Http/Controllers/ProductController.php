@@ -14,25 +14,27 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $getData = Product::latest()->get();
-        
         if ($request->ajax()) {
             $data = Product::latest()->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
    
-                           $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editBook">Edit</a>';
+                           $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" 
+                                        data-original-title="Edit" 
+                                        class="edit btn btn-primary btn-sm editProduct">Edit</a>';
    
-                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteBook">Delete</a>';
+                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" 
+                                        data-original-title="Delete" 
+                                        class="btn btn-danger btn-sm deleteProduct">Delete</a>';
     
                             return $btn;
                     })
                     ->rawColumns(['action'])
                     ->make(true);
         }
-    
-        return view('products.index',compact('getData'));
+      
+        return view('products.index');
     }
 
     /**
@@ -54,16 +56,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        Product::updateOrCreate(
-            ['id' => $request->book_id],
-            [
-                'user_id' => 1, 
-                'name' => $request->name, 
-                'author' => $request->author,
-                'type' => $request->type,
-                'thumbnail' => $request->thumbnail,
-                'details' => $request->details
-            ]);        
+        Product::updateOrCreate(['id' => $request->product_id],
+                [
+                    'user_id'   => 1,
+                    'name'      => $request->name, 
+                    'type'      => $request->type,
+                    'details'   => $request->details
+                ]);        
    
         return response()->json(['success'=>'Product saved successfully.']);
 
@@ -111,10 +110,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        $book = Product::find($id);
-        return response()->json($book);
+        $product = Product::find($id);
+        return response()->json($product);
     }
 
     /**
@@ -135,7 +134,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
         Product::find($id)->delete();
      
