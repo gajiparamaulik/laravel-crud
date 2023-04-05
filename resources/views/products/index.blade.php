@@ -22,10 +22,11 @@
 							<thead>
 								<tr>
 									<th>No</th>
+									<th width="100px">User Id</th>
 									<th>Name</th>
 									<th>Type</th>
 									{{-- <th>Thumbnail</th> --}}
-									<th>Details</th>
+									<th width="120px">Details</th>
 									<th width="120px">Action</th>
 								</tr>
 							</thead>
@@ -44,6 +45,7 @@
 				<div class="modal-body">
 					<form id="productForm" name="productForm" class="form-horizontal">
 						<input type="hidden" name="product_id" id="product_id">
+						<input type="hidden" id="user_id" name="user_id"> 
 						<div class="form-group">
 							<label for="name" class="col-sm-2 control-label">Name</label>
 							<div class="col-sm-12">
@@ -104,6 +106,9 @@ $(function() {
 			data: 'DT_RowIndex',
 			name: 'DT_RowIndex'
 		}, {
+			data: 'user_id',
+			name: 'user_id'
+		}, {
 			data: 'name',
 			name: 'name'
 		}, {
@@ -133,6 +138,7 @@ $(function() {
 			$('#saveBtn').val("edit-user");
 			$('#ajaxModel').modal('show');
 			$('#product_id').val(data.id);
+			$('#user_id').val(data.user_id);
 			$('#name').val(data.name);
 			$('#type').val(data.type);
 			$('#details').val(data.details);

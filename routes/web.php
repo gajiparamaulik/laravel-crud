@@ -27,4 +27,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('ajaxproducts', ProductController::class);
+Route::resource('ajaxproducts', ProductController::class)->middleware(['auth']);

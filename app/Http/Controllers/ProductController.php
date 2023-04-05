@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
+
 class ProductController extends Controller
 {
     /**
@@ -55,10 +57,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
+        $userId = Auth::user()->id;
         Product::updateOrCreate(['id' => $request->product_id],
                 [
-                    'user_id'   => 1,
+                    'user_id'   => $userId,
                     'name'      => $request->name, 
                     'type'      => $request->type,
                     'details'   => $request->details
