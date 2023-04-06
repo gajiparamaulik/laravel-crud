@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -18,7 +19,8 @@ class ProductController extends Controller
     {
         if ($request->ajax()) {
             $data = Product::latest()->get();
-            $userId = Auth::user()->name;
+            // dd($data);
+            // $data = DB::table('products')->select('name','user_id')->selectraw('count(user_id) as total')->selectRaw('SUM(status = "Done") as done')->where('div',  Auth::user()->div)->groupBy('name')->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
