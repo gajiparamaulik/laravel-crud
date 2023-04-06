@@ -18,6 +18,7 @@ class ProductController extends Controller
     {
         if ($request->ajax()) {
             $data = Product::latest()->get();
+            $userId = Auth::user()->name;
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
