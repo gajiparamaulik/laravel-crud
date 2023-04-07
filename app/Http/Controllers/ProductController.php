@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
@@ -19,20 +20,12 @@ class ProductController extends Controller
     {
         if ($request->ajax()) {
             $data = Product::latest()->get();
-            // dd($data);
-            // $data = DB::table('products')->select('name','user_id')->selectraw('count(user_id) as total')->selectRaw('SUM(status = "Done") as done')->where('div',  Auth::user()->div)->groupBy('name')->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
    
-                           $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" 
-                                        data-original-title="Edit" 
-                                        class="edit btn btn-primary btn-sm editProduct">Edit</a>';
-   
-                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" 
-                                        data-original-title="Delete" 
-                                        class="btn btn-danger btn-sm deleteProduct">Delete</a>';
-    
+                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+     
                             return $btn;
                     })
                     ->rawColumns(['action'])
