@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use DataTables;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -26,7 +27,7 @@ class ProductController extends Controller
             ->addIndexColumn()
             ->make(true);
         }
-        return view('list');
+        return view('products.index');
         // if ($request->ajax()) {
         //     $data = Product::latest()->get();
         //     return Datatables::of($data)
@@ -62,16 +63,33 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $userId = Auth::user()->id;
-        Product::updateOrCreate(['id' => $request->product_id],
-                [
-                    'user_id'   => $userId,
-                    'name'      => $request->name, 
-                    'type'      => $request->type,
-                    'details'   => $request->details
-                ]);        
-   
-        return response()->json(['success'=>'Product saved successfully.']);
+    //     request()->validate([
+    //         'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //    ]);
+     
+    //     $productId = $request->product_id;
+     
+    //     $details = ['name' => $request->name, 'type' => $request->type, 'details' => $request->details];
+     
+    //     if ($image = $request->file('thumbnail')) {
+    //             $destinationPath = 'images/';
+    //             $filenamewithExt = $image->getClientOriginalName();
+    //             $fileName = pathinfo($filenamewithExt, PATHINFO_FILENAME);
+    //             $extension = $request->file('thumbnail')->getClientOriginalExtension();
+    //             $filenameToStore = $fileName.'_'.time().'.'.$extension;
+    //             $image->move($destinationPath, $filenameToStore);
+    //             $product->thumbnail = "$filenameToStore";
+    //     }
+    //     $product   =   Product::updateOrCreate(['id' => $productId], $details);  
+               
+    //     return Response::json($product);
+
+
+    // return response understanding
+
+
+
+
 
         // $request->validate([
         //     'name' => 'required',
