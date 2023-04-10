@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DataTables;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -16,28 +19,30 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $data = Product::latest()->get();
-            $userId = Auth::user()->name;
-            return Datatables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-   
-                           $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" 
-                                        data-original-title="Edit" 
-                                        class="edit btn btn-primary btn-sm editProduct">Edit</a>';
-   
-                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" 
-                                        data-original-title="Delete" 
-                                        class="btn btn-danger btn-sm deleteProduct">Delete</a>';
-    
-                            return $btn;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
+        if(request()->ajax()) {
+            return datatables()->of(Product::select('*'))
+            ->addColumn('action', 'product-button')
+            ->addColumn('image', 'image')
+            ->rawColumns(['action','image'])
+            ->addIndexColumn()
+            ->make(true);
         }
-      
         return view('products.index');
+        // if ($request->ajax()) {
+        //     $data = Product::latest()->get();
+        //     return Datatables::of($data)
+        //             ->addIndexColumn()
+        //             ->addColumn('action', function($row){
+   
+        //                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+     
+        //                     return $btn;
+        //             })
+        //             ->rawColumns(['action'])
+        //             ->make(true);
+        // }
+      
+        // return view('products.index');
     }
 
     /**
@@ -58,16 +63,33 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $userId = Auth::user()->id;
-        Product::updateOrCreate(['id' => $request->product_id],
-                [
-                    'user_id'   => $userId,
-                    'name'      => $request->name, 
-                    'type'      => $request->type,
-                    'details'   => $request->details
-                ]);        
-   
-        return response()->json(['success'=>'Product saved successfully.']);
+        request()->validate([
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+       ]);
+     
+        $productId = $request->product_id;
+     
+        $details = ['name' => $request->name, 'type' => $request->type, 'details' => $request->details];
+     
+        if ($image = $request->file('thumbnail')) {
+                $destinationPath = 'images/';
+                $filenamewithExt = $image->getClientOriginalName();
+                $fileName = pathinfo($filenamewithExt, PATHINFO_FILENAME);
+                $extension = $request->file('thumbnail')->getClientOriginalExtension();
+                $filenameToStore = $fileName.'_'.time().'.'.$extension;
+                $image->move($destinationPath, $filenameToStore);
+                $request->thumbnail = "$filenameToStore";
+        }
+        $product   =   Product::updateOrCreate(['id' => $productId], $details);  
+               
+        return Response()->json($product);
+
+
+    // return response understanding
+
+
+
+
 
         // $request->validate([
         //     'name' => 'required',
@@ -115,8 +137,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-        return response()->json($product);
+        $where = array('id' => $id);
+        $product  = Product::where($where)->first();
+    
+        return Response()->json($product);
     }
 
     /**
