@@ -63,26 +63,26 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-    //     request()->validate([
-    //         'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //    ]);
+        request()->validate([
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+       ]);
      
-    //     $productId = $request->product_id;
+        $productId = $request->product_id;
      
-    //     $details = ['name' => $request->name, 'type' => $request->type, 'details' => $request->details];
+        $details = ['name' => $request->name, 'type' => $request->type, 'details' => $request->details];
      
-    //     if ($image = $request->file('thumbnail')) {
-    //             $destinationPath = 'images/';
-    //             $filenamewithExt = $image->getClientOriginalName();
-    //             $fileName = pathinfo($filenamewithExt, PATHINFO_FILENAME);
-    //             $extension = $request->file('thumbnail')->getClientOriginalExtension();
-    //             $filenameToStore = $fileName.'_'.time().'.'.$extension;
-    //             $image->move($destinationPath, $filenameToStore);
-    //             $product->thumbnail = "$filenameToStore";
-    //     }
-    //     $product   =   Product::updateOrCreate(['id' => $productId], $details);  
+        if ($image = $request->file('thumbnail')) {
+                $destinationPath = 'images/';
+                $filenamewithExt = $image->getClientOriginalName();
+                $fileName = pathinfo($filenamewithExt, PATHINFO_FILENAME);
+                $extension = $request->file('thumbnail')->getClientOriginalExtension();
+                $filenameToStore = $fileName.'_'.time().'.'.$extension;
+                $image->move($destinationPath, $filenameToStore);
+                $request->thumbnail = "$filenameToStore";
+        }
+        $product   =   Product::updateOrCreate(['id' => $productId], $details);  
                
-    //     return Response::json($product);
+        return Response()->json($product);
 
 
     // return response understanding
@@ -137,8 +137,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-        return response()->json($product);
+        $where = array('id' => $id);
+        $product  = Product::where($where)->first();
+    
+        return Response()->json($product);
     }
 
     /**
