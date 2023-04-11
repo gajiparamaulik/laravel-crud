@@ -27,4 +27,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('products', ProductController::class);
+Route::resource('ajaxproducts', ProductController::class)->middleware(['auth']);
+
+Route::get('product-list', [ProductController::class, 'index']);
+Route::get('product-list/{id}/edit', [ProductController::class, 'edit']);
+Route::post('product-list/store', [ProductController::class, 'store']);
+Route::get('product-list/delete/{id}', [ProductController::class, 'destroy']);

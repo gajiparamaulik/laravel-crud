@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
+use DataTables;
+use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -12,10 +17,32 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $getData = Product::get();
-        return view('products.index', compact('getData'));
+        if(request()->ajax()) {
+            return datatables()->of(Product::select('*'))
+            ->addColumn('action', 'product-button')
+            ->addColumn('image', 'image')
+            ->rawColumns(['action','image'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('products.index');
+        // if ($request->ajax()) {
+        //     $data = Product::latest()->get();
+        //     return Datatables::of($data)
+        //             ->addIndexColumn()
+        //             ->addColumn('action', function($row){
+   
+        //                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+     
+        //                     return $btn;
+        //             })
+        //             ->rawColumns(['action'])
+        //             ->make(true);
+        // }
+      
+        // return view('products.index');
     }
 
     /**
@@ -36,31 +63,59 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'type' => 'required',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'details' => 'required',
-        ]);
-        $product = new Product();
-        $product->user_id = 1;
-        $product->name = $request->name;
-        $product->type = $request->type;
-        
-        $request['user_id'] = 1;
+        request()->validate([
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+       ]);
+     
+        $productId = $request->product_id;
+     
+        $details = ['name' => $request->name, 'type' => $request->type, 'details' => $request->details];
+     
         if ($image = $request->file('thumbnail')) {
-            $destinationPath = 'images/';
-            $filenamewithExt = $image->getClientOriginalName();
-            $fileName = pathinfo($filenamewithExt, PATHINFO_FILENAME);
-            $extension = $request->file('thumbnail')->getClientOriginalExtension();
-            $filenameToStore = $fileName.'_'.time().'.'.$extension;
-            $image->move($destinationPath, $filenameToStore);
-            $product->thumbnail = "$filenameToStore";
+                $destinationPath = 'images/';
+                $filenamewithExt = $image->getClientOriginalName();
+                $fileName = pathinfo($filenamewithExt, PATHINFO_FILENAME);
+                $extension = $request->file('thumbnail')->getClientOriginalExtension();
+                $filenameToStore = $fileName.'_'.time().'.'.$extension;
+                $image->move($destinationPath, $filenameToStore);
+                $request->thumbnail = "$filenameToStore";
         }
-        $product->details = $request->details;
-        $product->save();
+        $product   =   Product::updateOrCreate(['id' => $productId], $details);  
+               
+        return Response()->json($product);
+
+
+    // return response understanding
+
+
+
+
+
+        // $request->validate([
+        //     'name' => 'required',
+        //     'type' => 'required',
+        //     'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     'details' => 'required',
+        // ]);
+        // $product = new Product();
+        // $product->user_id = 1;
+        // $product->name = $request->name;
+        // $product->type = $request->type;
         
-        return redirect()->back();
+        // $request['user_id'] = 1;
+        // if ($image = $request->file('thumbnail')) {
+        //     $destinationPath = 'images/';
+        //     $filenamewithExt = $image->getClientOriginalName();
+        //     $fileName = pathinfo($filenamewithExt, PATHINFO_FILENAME);
+        //     $extension = $request->file('thumbnail')->getClientOriginalExtension();
+        //     $filenameToStore = $fileName.'_'.time().'.'.$extension;
+        //     $image->move($destinationPath, $filenameToStore);
+        //     $product->thumbnail = "$filenameToStore";
+        // }
+        // $product->details = $request->details;
+        // $product->save();
+        
+        // return redirect()->back();
     }
 
     /**
@@ -80,9 +135,12 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $where = array('id' => $id);
+        $product  = Product::where($where)->first();
+    
+        return Response()->json($product);
     }
 
     /**
@@ -103,8 +161,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        Product::find($id)->delete();
+     
+        return response()->json(['success'=>'Product deleted successfully.']);
     }
 }
