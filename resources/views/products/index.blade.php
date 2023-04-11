@@ -62,6 +62,7 @@
 		</table>
 	</div>
 
+    
 	<!-- Modal -->
 	<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
