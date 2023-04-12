@@ -26,7 +26,7 @@ class ProductController extends Controller
             ->rawColumns(['action','image'])
             ->addIndexColumn()
             ->make(true);
-        }
+        } 
         return view('products.index');
         // if ($request->ajax()) {
         //     $data = Product::latest()->get();
@@ -41,8 +41,10 @@ class ProductController extends Controller
         //             ->rawColumns(['action'])
         //             ->make(true);
         // }
-      
-        // return view('products.index');
+
+
+        $getData = Product::get();
+        return view('products.index', compact('getData'));
     }
 
     /**
