@@ -19,15 +19,15 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        if(request()->ajax()) {
-            return datatables()->of(Product::select('*'))
-            ->addColumn('action', 'product-button')
-            ->addColumn('image', 'image')
-            ->rawColumns(['action','image'])
-            ->addIndexColumn()
-            ->make(true);
-        } 
-        return view('products.index');
+        // if(request()->ajax()) {
+        //     return datatables()->of(Product::select('*'))
+        //     ->addColumn('action', 'product-button')
+        //     ->addColumn('image', 'image')
+        //     ->rawColumns(['action','image'])
+        //     ->addIndexColumn()
+        //     ->make(true);
+        // } 
+        // return view('products.index');
         // if ($request->ajax()) {
         //     $data = Product::latest()->get();
         //     return Datatables::of($data)
