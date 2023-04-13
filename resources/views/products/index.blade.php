@@ -87,7 +87,7 @@
 							  <option value="two">Two</option>
 							  <option value="three">Three</option>
 							</select>
-						</div>
+						</div> 
 						<div class="mb-3">
 						  <label for="name" class="form-label fw-bolder">Thumbnail</label><br>
 						  <input type="file" accept=".png, .jpg, .jpeg, .gif" name="thumbnail" />
