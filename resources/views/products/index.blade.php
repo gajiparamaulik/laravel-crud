@@ -26,7 +26,7 @@
 	<div class="container mt-3">
 		<button class="btn btn-dark"  data-bs-toggle="modal" data-bs-target="#formModal">Add Product</button>
 	</div>
-
+	{{-- Changes done --}}
 	<div class="container bg-light mt-3">
 		<table class="table ">
 			<thead>
