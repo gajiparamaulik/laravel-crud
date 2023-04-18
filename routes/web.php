@@ -29,7 +29,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('ajaxproducts', ProductController::class)->middleware(['auth']);
 
-// new routes
+// new routes datatable db
 // Route::get('product-list', [ProductController::class, 'index']);
 // Route::get('product-list/{id}/edit', [ProductController::class, 'edit']);
 // Route::post('product-list/store', [ProductController::class, 'store']);
