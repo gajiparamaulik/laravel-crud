@@ -112,7 +112,7 @@
    
 <script type="text/javascript">
   $(function () {
-    
+	console.log('testing');
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
