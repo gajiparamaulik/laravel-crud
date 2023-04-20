@@ -28,7 +28,7 @@
 	</div>
 	{{-- worked on Changes --}}
 
-	<div class="row">
+	<div class="row"> 
 		<h2>title</h2>
 	</div>
 	
