@@ -26,7 +26,12 @@
 	<div class="container mt-3">
 		<button class="btn btn-dark"  data-bs-toggle="modal" data-bs-target="#formModal">Add Product</button>
 	</div>
+	{{-- worked on Changes testing --}} 
 
+	<div class="row"> 
+		<h2>title</h2>
+	</div>
+	
 	<div class="container bg-light mt-3">
 		<table class="table ">
 			<thead>
@@ -73,7 +78,7 @@
 					<button	button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+					<form action="{{ route('ajaxproducts.store') }}" method="POST" enctype="multipart/form-data">
 						@csrf
 						<div class="mb-3">
 						  <label for="name" class="form-label fw-bolder">Full Name</label>
@@ -87,7 +92,7 @@
 							  <option value="two">Two</option>
 							  <option value="three">Three</option>
 							</select>
-						</div>
+						</div> 
 						<div class="mb-3">
 						  <label for="name" class="form-label fw-bolder">Thumbnail</label><br>
 						  <input type="file" accept=".png, .jpg, .jpeg, .gif" name="thumbnail" />
@@ -110,7 +115,7 @@
    
 <script type="text/javascript">
   $(function () {
-    
+	console.log('working');
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
