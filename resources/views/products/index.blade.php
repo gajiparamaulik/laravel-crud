@@ -34,7 +34,7 @@
 					<th scope="col">No.</th>
 					<th scope="col">User Id</th>
 					<th scope="col">Name</th>
-					<th scope="col">Type</th>
+					<th scope="col">Type check</th>
 					<th scope="col">Thumbnail check</th>
 					<th scope="col">Details check</th>
 					<th scope="col">Actions</th>
