@@ -37,7 +37,7 @@
 					<th scope="col">Type check</th>
 					<th scope="col">Thumbnail check</th>
 					<th scope="col">Details check</th>
-					<th scope="col">Actions</th>
+					<th scope="col">Actions check</th>
 				</tr>
 			</thead>
 			<tbody>
