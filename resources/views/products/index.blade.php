@@ -31,7 +31,7 @@
 		<table class="table ">
 			<thead>
 				<tr>
-					<th scope="col">No.</th>
+					<th scope="col">No. check</th>
 					<th scope="col">User Id check</th>
 					<th scope="col">Name check</th>
 					<th scope="col">Type check</th>
