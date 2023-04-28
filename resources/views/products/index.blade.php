@@ -32,7 +32,7 @@
 			<thead>
 				<tr>
 					<th scope="col">No. check</th>
-					<th scope="col">User Id check</th>
+					<th scope="col">User Id check list add</th>
 					<th scope="col">Name check</th>
 					<th scope="col">Type check</th>
 					<th scope="col">Thumbnail check</th>
