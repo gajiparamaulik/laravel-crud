@@ -34,7 +34,7 @@
 					<th scope="col">No. check2</th>
 					<th scope="col">User Id check list add2</th>
 					<th scope="col">Name check22</th>
-					<th scope="col">Type check</th>
+					<th scope="col">Type check22</th>
 					<th scope="col">Thumbnail check</th>
 					<th scope="col">Details check</th>
 					<th scope="col">Actions check</th>
