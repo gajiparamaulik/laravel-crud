@@ -36,7 +36,7 @@
 					<th scope="col">Name check22</th>
 					<th scope="col">Type check222</th>
 					<th scope="col">Thumbnail check22</th>
-					<th scope="col">Details check</th>
+					<th scope="col">Details check22</th>
 					<th scope="col">Actions check</th>
 				</tr>
 			</thead>
