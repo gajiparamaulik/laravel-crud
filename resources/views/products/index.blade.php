@@ -31,13 +31,13 @@
 		<table class="table ">
 			<thead>
 				<tr>
-					<th scope="col">No. check2</th>
-					<th scope="col">User Id check list add2</th>
-					<th scope="col">Name check22</th>
-					<th scope="col">Type check222</th>
-					<th scope="col">Thumbnail check22</th>
-					<th scope="col">Details check22</th>
-					<th scope="col">Actions check</th>
+					<th scope="col">No.</th>
+					<th scope="col">Users</th>
+					<th scope="col">Name</th>
+					<th scope="col">Type</th>
+					<th scope="col">Thumbnail</th>
+					<th scope="col">Details</th>
+					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
