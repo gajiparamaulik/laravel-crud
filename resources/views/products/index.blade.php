@@ -26,18 +26,13 @@
 	<div class="container mt-3">
 		<button class="btn btn-dark"  data-bs-toggle="modal" data-bs-target="#formModal">Add Product</button>
 	</div>
-	{{-- worked on Changes testing --}} 
-
-	<div class="row"> 
-		<h2>title</h2>
-	</div>
 	
 	<div class="container bg-light mt-3">
 		<table class="table ">
 			<thead>
 				<tr>
 					<th scope="col">No.</th>
-					<th scope="col">User Id</th>
+					<th scope="col">Users</th>
 					<th scope="col">Name</th>
 					<th scope="col">Type</th>
 					<th scope="col">Thumbnail</th>
