@@ -18,3 +18,9 @@ body {
 .float-right {
     float: right !important;
 }
+.material-icons.orange600 { 
+	color: #25082c; 
+}
+.material-icons.red600 { 
+	color: #fb0000; 
+}
