@@ -46,7 +46,7 @@
 						<td><img src="images/{{ $data['thumbnail'] }}" height="30" alt=""></td>
 						<td>{{ $data['details'] }}</td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal">
+							<a href="#editEmployeeModal" class="edit" data-bs-toggle="modal" data-bs-target="#formModal">
 								<i class="material-icons orange600" data-toggle="tooltip" title="Edit">&#xE254;</i>
 							</a>
 							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
@@ -85,7 +85,7 @@
 						</div> 
 						<div class="mb-3">
 						  <label for="name" class="form-label fw-bolder">Thumbnail</label><br>
-						  <input type="file" accept=".png, .jpg, .jpeg, .gif" name="thumbnail" />
+						  <input type="file" accept=".png, .jpg, .jpeg, .gif" name="thumbnail"  />
 						</div>
 						<div class="form-group purple-border">
 							<label for="details" class="fw-bolder">Details</label>
