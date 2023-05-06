@@ -89,8 +89,7 @@ class ProductController extends Controller
     {
         $where = array('id' => $id);
         $product  = Product::where($where)->first();
-        dd($product);
-    
+        
         return Response()->json($product);
     }
 
@@ -103,7 +102,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        dd("working update function.");
     }
 
     /**
