@@ -142,7 +142,11 @@
 </body>
    
 </html>
-
+<style>
+	.register-btn {
+		color: black;
+	}
+</style>
 <script>
 	
 </script>
