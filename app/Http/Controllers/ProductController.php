@@ -36,7 +36,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illumin ate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -47,8 +47,9 @@ class ProductController extends Controller
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'details' => 'required',
         ]);
+        $authUser = auth()->user()->id;
         $product = new Product();
-        $product->user_id = 1;
+        $product->user_id = $authUser;
         $product->name = $request->name;
         $product->type = $request->type;
         

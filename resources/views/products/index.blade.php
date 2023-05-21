@@ -46,7 +46,7 @@
 						<td><img src="images/{{ $data['thumbnail'] }}" height="30" alt=""></td>
 						<td>{{ $data['details'] }}</td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-bs-toggle="modal" data-bs-target="#editProductModal{{$data['id']}}">
+							<a href="#editProductModal" class="edit" data-bs-toggle="modal">
 								<i class="material-icons orange600" data-toggle="tooltip" title="Edit">&#xE254;</i>
 							</a>
 							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
@@ -99,7 +99,7 @@
 	</div>
 
 	<!-- Edit Product Modal -->
-	<div class="modal fade" id="editProductModal{{$data['id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -142,11 +142,3 @@
 </body>
    
 </html>
-<style>
-	.register-btn {
-		color: black;
-	}
-</style>
-<script>
-	
-</script>
