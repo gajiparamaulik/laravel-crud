@@ -103,7 +103,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        dd("working update function.");
+        dd("working function.");
     }
 
     /**
