@@ -101,9 +101,11 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        dd("working function.");
+        $updateProduct = Product::findOrFail($id);
+        $updateProduct->update($request->all());
+        return back();
     }
 
     /**

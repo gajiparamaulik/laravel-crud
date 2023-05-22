@@ -41,12 +41,12 @@
 					<tr>
 						<th scope="row">{{ $index + 1 }}</th>
 						<td>{{ $data->user->name }}</td>
-						<td>{{ $data['name'] }}</td>
-						<td>{{ $data['type'] }}</td>
-						<td><img src="images/{{ $data['thumbnail'] }}" height="30" alt=""></td>
-						<td>{{ $data['details'] }}</td>
+						<td>{{ $data->name }}</td>
+						<td>{{ $data->type }}</td>
+						<td><img src="images/{{ $data->thumbnail }}" height="30" alt=""></td>
+						<td>{{ $data->details }}</td>
 						<td>
-							<a href="#editProductModal" class="edit" data-bs-toggle="modal">
+							<a href="#editProductModal/{{$data->id}}" class="edit" data-bs-toggle="modal">
 								<i class="material-icons orange600" data-toggle="tooltip" title="Edit">&#xE254;</i>
 							</a>
 							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
@@ -99,7 +99,7 @@
 	</div>
 
 	<!-- Edit Product Modal -->
-	<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="editProductModal/{{$data->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -108,7 +108,7 @@
 				</div>
 				<div class="modal-body">
 					
-					{{-- <form action="{{ route('products.update') }}" method="POST" enctype="multipart/form-data"> --}}
+					{{-- <form action="{{ route('products.edit') }}" method="POST" enctype="multipart/form-data"> --}}
 						@csrf
 						<div class="mb-3">
 							<label for="name" class="form-label fw-bolder">Full Name</label>
@@ -131,7 +131,7 @@
 							<label for="details" class="fw-bolder">Details</label>
 							<textarea class="form-control" rows="3" name="details" placeholder="Leave a comment here"></textarea>
 						</div>
-						<button type="submit" class="btn btn-primary float-right mt-2">Submit</button>
+						<button type="submit" class="btn btn-primary float-right mt-2">Update</button>
 					{{-- </form> --}}
 				</div>
 			</div>
