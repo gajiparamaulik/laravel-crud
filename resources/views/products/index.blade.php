@@ -46,7 +46,8 @@
 						<td><img src="images/{{ $data->thumbnail }}" height="30" alt=""></td>
 						<td>{{ $data->details }}</td>
 						<td>
-							<a href="#editProductModal/{{$data->id}}" class="edit" data-bs-toggle="modal">
+							<a href="#editProductModal/{{$data->id}}" class="edit" data-bs-toggle="modal"
+								data-bs-target="#editProductModal/{{$data->id}}">
 								<i class="material-icons orange600" data-toggle="tooltip" title="Edit">&#xE254;</i>
 							</a>
 							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
