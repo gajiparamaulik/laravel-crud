@@ -182,7 +182,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-        /*
+        Stevebauman\Location\LocationServiceProvider::class,
+        /*'Location' => 'Stevebauman\Location\Facades\Location',
          * Package Service Providers...
          */
 
@@ -208,8 +209,8 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
-        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-    ])->toArray(),
+    'aliases' => [
+        'Location' => 'Stevebauman\Location\Facades\Location',
+    ],
 
 ];
