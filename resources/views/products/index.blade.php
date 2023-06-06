@@ -47,7 +47,7 @@
 						<td>{{ $data->details }}</td>
 						<td>
 							<a href="#editProductModal/{{$data->id}}" class="edit" data-bs-toggle="modal"
-								data-bs-target="#editProductModal/{{$data->id}}">
+								data-bs-target="#editProductModal">
 								<i class="material-icons orange600" data-toggle="tooltip" title="Edit">&#xE254;</i>
 							</a>
 							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
@@ -100,7 +100,7 @@
 	</div>
 
 	<!-- Edit Product Modal -->
-	<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="editProductModal/{{$data->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	{{-- <div class="modal fade" id="editProductModal/{{$data->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> --}}
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
