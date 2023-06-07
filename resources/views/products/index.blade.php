@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="{{asset('css/product.css')}}">
 	<script src="{{asset('js/product.js')}}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 
 <body class="bg-info">
@@ -46,13 +47,16 @@
 						<td><img src="images/{{ $data->thumbnail }}" height="30" alt=""></td>
 						<td>{{ $data->details }}</td>
 						<td>
-							<a href="#editProductModal/{{$data->id}}" class="edit" data-bs-toggle="modal"
+							<button value="{{ $data->id }}" class="btn btn-primary" id="editBtn">Edit</button>
+							<button value="{{ $data->id }}" class="btn btn-danger">Delete</button>
+							{{-- <a href="#editProductModal" class="edit" data-bs-toggle="modal"
 								data-bs-target="#editProductModal">
 								<i class="material-icons orange600" data-toggle="tooltip" title="Edit">&#xE254;</i>
-							</a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+							</a> --}}
+
+							{{-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
 								<i class="material-icons red600" data-toggle="tooltip" title="Delete">&#xE872;</i>
-							</a>
+							</a> --}}
 						</td>
 					</tr>
 				@endforeach
@@ -146,3 +150,12 @@
    
 </html>
 
+<script>
+	$(document).ready(function () {
+		$(document).on('click', '#editBtn', function () {
+			var prod_id = $(this).val();
+			alert(prod_id);
+		});
+	});
+
+</script>
