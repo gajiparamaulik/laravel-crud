@@ -104,8 +104,7 @@
 	</div>
 
 	<!-- Edit Product Modal -->
-	<div class="modal fade" id="editProductModal/{{$data->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	{{-- <div class="modal fade" id="editProductModal/{{$data->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> --}}
+	<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -114,15 +113,16 @@
 				</div>
 				<div class="modal-body">
 					
-					{{-- <form action="{{ route('products.edit') }}" method="POST" enctype="multipart/form-data"> --}}
+					<form action="{{ route('products.update') }}" method="POST" enctype="multipart/form-data">
 						@csrf
+						<input type="hidden" name="prod_id" id="prod_id">
 						<div class="mb-3">
 							<label for="name" class="form-label fw-bolder">Full Name</label>
-							<input type="text" class="form-control" name="name" placeholder="Enter Full Name">
+							<input type="text" class="form-control" name="name" id="name" placeholder="Enter Full Name">
 						</div>
 						<div class="mb-3">
 							<label for="name" class="form-label fw-bolder">Type</label>
-							<select class="form-select" name="type">
+							<select class="form-select" name="type" id="type">
 								<option selected>Choose...</option>
 								<option value="one">One</option>
 								<option value="two">Two</option>
@@ -131,11 +131,11 @@
 						</div>
 						<div class="mb-3">
 							<label for="name" class="form-label fw-bolder">Thumbnail</label><br>
-							<input type="file" accept=".png, .jpg, .jpeg, .gif" name="thumbnail"  />
+							<input type="file" accept=".png, .jpg, .jpeg, .gif" id="thumbnail" name="thumbnail"  />
 						</div>
 						<div class="form-group purple-border">
 							<label for="details" class="fw-bolder">Details</label>
-							<textarea class="form-control" rows="3" name="details" placeholder="Leave a comment here"></textarea>
+							<textarea class="form-control" rows="3" name="details" id="details" placeholder="Leave a comment here"></textarea>
 						</div>
 						<button type="submit" class="btn btn-primary float-right mt-2">Update</button>
 					{{-- </form> --}}
@@ -154,7 +154,18 @@
 	$(document).ready(function () {
 		$(document).on('click', '#editBtn', function () {
 			var prod_id = $(this).val();
-			alert(prod_id);
+			$('#editProductModal').modal('show');
+
+			$.ajax({
+				type: "GET",
+				url: "/edit-product/" + prod_id,
+				data: "data",
+				dataType: "dataType",
+				success: function (response) {
+					console.log(response);
+				}
+			});
+
 		});
 	});
 

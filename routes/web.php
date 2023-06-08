@@ -25,6 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('/products', ProductController::class)->middleware(['auth']);
 
+
 Route::get('/send-mail', [MailController::class, 'index']);
 
 Route::get('user_details', [App\Http\Controllers\LocationController::class, 'userDetails']);
