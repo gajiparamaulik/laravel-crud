@@ -154,6 +154,7 @@
 	$(document).ready(function () {
 		$(document).on('click', '#editBtn', function () {
 			var prod_id = $(this).val();
+			console.log('working');
 			$('#editProductModal').modal('show');
 
 			$.ajax({
