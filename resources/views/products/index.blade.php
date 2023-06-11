@@ -153,21 +153,19 @@
 <script>
 	$(document).ready(function () {
 		$(document).on('click', '#editBtn', function () {
+
 			var prod_id = $(this).val();
-			console.log('working');
 			$('#editProductModal').modal('show');
 
 			$.ajax({
 				type: "GET",
-				url: "/edit-product/" + prod_id,
-				data: "data",
-				dataType: "dataType",
+				url: "/products-edit/" + prod_id,
 				success: function (response) {
-					console.log(response);
+					$('#name').val(response.product.name);
+					$('#type').val(response.product.type);
+					$('#details').val(response.product.details);
 				}
 			});
-
 		});
 	});
-
 </script>

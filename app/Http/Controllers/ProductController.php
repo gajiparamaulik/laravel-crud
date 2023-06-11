@@ -88,10 +88,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $where = array('id' => $id);
-        $product  = Product::where($where)->first();
-        
-        return Response()->json($product);
+        $product  = Product::find($id);   
+        return Response()->json([
+            'status' => 200,
+            'product' => $product
+        ]);
     }
 
     /**
@@ -103,9 +104,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateProduct = Product::findOrFail($id);
-        $updateProduct->update($request->all());
-        return back();
+        $authUser = auth()->user()->id;
+        $prod_id = $request->input('prod_id');
+        $product = Product::find();
+        $product->user_id = $authUser;
+        $product->name = $request->input('name');
+        $product->type = $request->input('type');
+        $product->details = $request->input('details');
+        $product->update();
+        
+        return redirect()->back()->with('status', 'Product update successfully.');
     }
 
     /**
